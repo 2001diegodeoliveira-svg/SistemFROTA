@@ -1,0 +1,141 @@
+// Prisma schema para o sistema SGI PROTEGE - Controle de Viaturas
+// Banco: PostgreSQL (Render)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Veiculo {
+  id           String   @id @default(cuid())
+  prefixo      String   @unique
+  marca        String
+  modelo       String
+  placa        String   @unique
+  kmAtual      Int      @map("km_atual")
+  ano          Int
+  renavam      String?
+  chassi       String?
+  statusDispo  String   @default("Disponível") @map("status_dispo")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  viagens      Viagem[]
+  manutencoes  Manutencao[]
+  alertas      Alerta[]
+
+  @@map("veiculos")
+}
+
+model Motorista {
+  id          String   @id @default(cuid())
+  nome        String
+  cnh         String   @unique
+  categoria   String   @map("categoria_cnh")
+  telefone    String?
+  matricula   String   @unique
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  viagens     Viagem[]
+
+  @@map("motoristas")
+}
+
+model Viagem {
+  id                String   @id @default(cuid())
+  veiculoId         String   @map("veiculo_id")
+  motoristaId       String   @map("motorista_id")
+  dataSaida         DateTime @map("data_saida")
+  kmInicial         Int      @map("km_inicial")
+  combustivelSaida  String?  @map("combustivel_saida")
+  destino           String
+  dataRetorno       DateTime? @map("data_retorno")
+  kmFinal           Int?     @map("km_final")
+  combustivelRetorno String? @map("combustivel_retorno")
+  status            String   @default("Ativa")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  veiculo           Veiculo   @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
+  motorista         Motorista @relation(fields: [motoristaId], references: [id], onDelete: Cascade)
+  checklists        Checklist[]
+
+  @@map("viagens")
+}
+
+model Checklist {
+  id            String   @id @default(cuid())
+  viagemId      String   @map("viagem_id")
+  tipo          String
+  dataVistoria  DateTime @map("data_vistoria")
+  ocupantes     String?
+  // Seção 2 - Sinalização
+  farois        String?
+  setas         String?
+  luzFreio      String?  @map("luz_freio")
+  giroflex      String?
+  sirene        String?
+  radio         String?
+  limpadores    String?
+  // Seção 3 - Itens
+  cartaoPrime   String?  @map("cartao_prime")
+  documento     String?
+  ferramentas   String?
+  // Seção 4 - Níveis
+  oleo          String?
+  agua          String?
+  fluidoFreio   String?  @map("fluido_freio")
+  combustivel   String?
+  // Seção 5 - Carroceria
+  arranhao      String?
+  amassado      String?
+  quebrado      String?
+  avariasDesc   String?  @map("avarias_desc")
+  observacoes   String?
+  termo         Boolean  @default(false)
+  statusGeral   String   @default("Aprovado") @map("status_geral")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  viagem        Viagem   @relation(fields: [viagemId], references: [id], onDelete: Cascade)
+
+  @@map("checklists")
+}
+
+model Manutencao {
+  id           String   @id @default(cuid())
+  veiculoId    String   @map("veiculo_id")
+  tipo         String
+  custo        Float    @default(0)
+  pecas        String?
+  oficina      String
+  kmRegistro   Int      @map("km_registro")
+  dataEntrada  DateTime @map("data_entrada")
+  dataSaida    DateTime? @map("data_saida")
+  status       String   @default("Ativa")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  veiculo      Veiculo  @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
+
+  @@map("manutencoes")
+}
+
+model Alerta {
+  id          String   @id @default(cuid())
+  veiculoId   String   @map("veiculo_id")
+  tipo        String
+  parametro   String
+  descricao   String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  veiculo     Veiculo  @relation(fields: [veiculoId], references: [id], onDelete: Cascade)
+
+  @@map("alertas")
+}

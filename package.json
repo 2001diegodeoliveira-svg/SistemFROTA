@@ -1,0 +1,34 @@
+{
+  "name": "frota-gustavo-backend",
+  "version": "1.0.0",
+  "description": "Backend + SQL (PostgreSQL) para o sistema SGI PROTEGE - Controle de Viaturas/Frotas. Hospedagem Render via Blueprint.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": ["frota", "viaturas", "sgi-protege", "express", "prisma", "postgresql", "render"],
+  "author": "SGI PROTEGE",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "prisma": "^5.22.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
