@@ -1,13 +1,7 @@
 {
+  "framework": "express",
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/index.js" },
     { "source": "/", "destination": "/index.html" }
-  ],
-  "services": {
-    "sgi-protege-frotas": {
-      "root": ".",
-      "framework": "express",
-      "buildCommand": "npm install && npx prisma generate"
-    }
-  }
+  ]
 }
