@@ -22,7 +22,20 @@ Backend Node.js/Express com banco de dados PostgreSQL (Render) para o sistema de
 5. Seed: `npm run seed`
 6. Start: `npm run dev`
 
-## Deploy no Render
+## Como subir ao GitHub (manual, sem PAT)
+Como não foi fornecido token, siga estes passos no GitHub Desktop (instalado):
+
+1. Abra o GitHub Desktop
+2. File → Add Local Repository → selecione a pasta `frota gustavo`
+3. Publish repository → nome: `frota-gustavo-backend` → marque "Keep this code private" se desejar → Publish
+4. Após publicado, o Render pode ser conectado ao repositório
+
+Ou via git CLI (após criar o repo vazio no GitHub):
+```bash
+git remote add origin https://github.com/SEU_USUARIO/frota-gustavo-backend.git
+git branch -M main
+git push -u origin main
+```
 1. Crie conta em https://render.com
 2. Conecte este repositório GitHub ao Render
 3. O Render detectará `render.yaml` e provisionará banco + web service
