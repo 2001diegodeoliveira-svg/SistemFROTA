@@ -33,9 +33,9 @@ app.get('/api/health', (req, res) => {
 });
 
 // Servir frontend estático (gestaodefrota.html)
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(process.cwd()));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 
 // 404
