@@ -1159,38 +1159,17 @@
         document.getElementById('current-date').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' });
 
         // BANCO DE DADOS EM MEMÓRIA LOCAL
-        const DEFAULT_VEICULOS = [
-            { id: "1", prefixo: "DC-01", marca: "Chevrolet", modelo: "S-10", placa: "OBP-4A21", km_atual: 45200, ano: 2022, renavam: "123456789", chassi: "9BD12345678901234", status_dispo: "Disponível" },
-            { id: "2", prefixo: "DC-02", marca: "Chevrolet", modelo: "S-10", placa: "QNY-7H80", km_atual: 58100, ano: 2021, renavam: "987654321", chassi: "9BD54321098765432", status_dispo: "Em Viagem" },
-            { id: "3", prefixo: "DC-03", marca: "Chevrolet", modelo: "S-10", placa: "RNY-1A23", km_atual: 89600, ano: 2023, renavam: "456123789", chassi: "9BD98765432109876", status_dispo: "Em Manutenção" },
-            { id: "4", prefixo: "DC-04", marca: "Chevrolet", modelo: "S-10", placa: "NJK-5E92", km_atual: 32400, ano: 2022, renavam: "321654987", chassi: "9BD76543210987654", status_dispo: "Disponível" },
-            { id: "5", prefixo: "DC-05", marca: "Chevrolet", modelo: "S-10", placa: "OBG-3C44", km_atual: 112000, ano: 2020, renavam: "789456123", chassi: "9BD43210987654321", status_dispo: "Disponível" }
-        ];
+        const DEFAULT_VEICULOS = [];
 
-        const DEFAULT_MOTORISTAS = [
-            { id: "1", nome: "Carlos Alberto da Silva", cnh: "44589230591", categoria_cnh: "D", telefone: "(65) 98756-3241", matricula: "DC-4509" },
-            { id: "2", nome: "Marina Rodrigues", cnh: "88950239401", categoria_cnh: "B", telefone: "(65) 94032-1188", matricula: "DC-9923" },
-            { id: "3", nome: "José Roberto Souza", cnh: "55678129033", categoria_cnh: "C", telefone: "(65) 97722-4411", matricula: "DC-2104" }
-        ];
+        const DEFAULT_MOTORISTAS = [];
 
-        const DEFAULT_VIAGENS = [
-            { id: "v1", veiculo_id: "2", motorista_id: "2", data_saida: "2026-07-07 08:30", km_inicial: 58000, combustivel_saida: "Cheio", destino: "Atendimento Emergencial - Rondonópolis/MT", data_retorno: null, km_final: null, combustivel_retorno: null, status: "Ativa" },
-            { id: "v2", veiculo_id: "1", motorista_id: "1", data_saida: "2026-07-06 09:00", km_inicial: 45000, combustivel_saida: "Meio", destino: "Entrega de Equipamento de Salvamento", data_retorno: "2026-07-06 17:30", km_final: 45180, combustivel_retorno: "1/4", status: "Concluída" }
-        ];
+        const DEFAULT_VIAGENS = [];
 
-        const DEFAULT_CHECKLISTS = [
-            { id: "chk1", viagem_id: "v2", tipo: "Pré-Viagem (Ida)", data_vistoria: "2026-07-06 08:45", oleo_ok: true, agua_ok: true, calibragem_ok: true, estepe_ok: true, luzes_ok: true, documento_ok: true, avarias_desc: "Nenhuma irregularidade", status_geral: "Aprovado" }
-        ];
+        const DEFAULT_CHECKLISTS = [];
 
-        const DEFAULT_MANUTENCOES = [
-            { id: "m1", veiculo_id: "3", tipo: "Corretiva", custo: 0, pecas: "Aguardando diagnóstico e reparo no sistema de injeção", oficina: "Auto Elétrica Centro", km_registro: 89600, data_entrada: "2026-07-07 10:00", data_saida: null, status: "Ativa" },
-            { id: "m2", veiculo_id: "1", tipo: "Preventiva", custo: 320.00, pecas: "Troca do óleo do motor e pastilhas dianteiras", oficina: "LubriCar Cuiabá", km_registro: 44000, data_entrada: "2026-06-15 10:00", data_saida: "2026-06-15 14:30", status: "Concluída" }
-        ];
+        const DEFAULT_MANUTENCOES = [];
 
-        const DEFAULT_ALERTAS = [
-            { id: "al1", veiculo_id: "1", tipo: "Data", parametro: "2026-08-30", descricao: "Revisão Periódica Semestral obrigatória" },
-            { id: "al2", veiculo_id: "2", tipo: "KM", parametro: "60000", descricao: "Rodízio de Pneus e Alinhamento tático" }
-        ];
+        const DEFAULT_ALERTAS = [];
 
         function getDb(key, fallback) {
             const data = localStorage.getItem(key);
